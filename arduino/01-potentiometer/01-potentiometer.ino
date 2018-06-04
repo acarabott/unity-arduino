@@ -1,3 +1,5 @@
+// Read a single sensor and output the value via Serial
+
 const int potPin = A0;
 
 const float analogMax = 1023.0f;

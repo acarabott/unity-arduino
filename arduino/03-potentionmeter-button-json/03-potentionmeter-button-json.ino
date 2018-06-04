@@ -1,3 +1,5 @@
+// Read two sensors, output values via Serial as JSON
+
 #include "ArduinoJson-v5.13.2.hpp";
 
 const int potPin = A0;
@@ -26,7 +28,6 @@ void loop() {
   ArduinoJson::JsonObject& jsonData = jsonBuffer.createObject();
 
   jsonData["potValue"] = potScaled;
-  // jsonData["buttonState"] = buttonState;
   jsonData["isButtonDown"] = isButtonDown;
 
   // send the JSON data via serial
