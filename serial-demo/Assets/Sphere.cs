@@ -6,7 +6,7 @@ public class Sphere : MonoBehaviour {
     public SerialReader serialReader;
 
 	void Update () {
-        if (serialReader && serialReader.isConnected) {
+        if (serialReader) {
             float scale = serialReader.data.potValue * 5.0f;
             gameObject.transform.localScale = new Vector3(scale, scale, scale);
 
