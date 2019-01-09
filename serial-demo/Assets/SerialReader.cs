@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Timers;
 using System.Text;
+using Unity.Collections;
 using UnityEngine;
 
 // Important! you need to change this setting:
@@ -10,13 +11,18 @@ using UnityEngine;
 // Set this to .NET 2.0, (not .NET 2.0 Subset)
 using System.IO.Ports;
 
+public class SerialReader : MonoBehaviour {
+    [Header("Info")]
 
-public class SerialReader<T> {
-    public List<string> portNames = new List<string> ();
+    public string status = "Disconnected";
+
+    public List<string> availablePorts = new List<string> ();
+
+    [Header("Options (must set before Play)")]
     public string portName = "";
     public int baudRate = 9600;
     public double connectionTimeoutMs = 2000.0;
-    public T data;
+    public SerialData data;
 
     protected bool isConnected = false;
     protected bool isConnecting = false;
@@ -26,6 +32,7 @@ public class SerialReader<T> {
     StringBuilder stringBuilder = new StringBuilder();
 
     public void Start() {
+        status = "Disconnected";
         Connect();
     }
 
@@ -40,7 +47,8 @@ public class SerialReader<T> {
         // reset state
         isConnecting = true;
         isConnected = false;
-        portNames.Clear();
+        availablePorts.Clear();
+        status = "Connecting...";
 
         // Get list of devices, set default device
         var platform = System.Environment.OSVersion.Platform;
@@ -49,7 +57,7 @@ public class SerialReader<T> {
         {
             string[] ttys = System.IO.Directory.GetFiles ("/dev/", "tty.*");
             foreach (string dev in ttys) {
-                portNames.Add(dev);
+                availablePorts.Add(dev);
 
                 // Set default device
                 if (dev.StartsWith("/dev/tty.usb"))
@@ -62,7 +70,7 @@ public class SerialReader<T> {
         else {
             foreach (var port in SerialPort.GetPortNames())
             {
-                portNames.Add(port);
+                availablePorts.Add(port);
                 // TODO windows default device
             }
         }
@@ -119,7 +127,7 @@ public class SerialReader<T> {
                 );
 
                 isConnected = true;
-                Debug.Log("connected");
+                status = "Connected";
             }
             catch {
                 isConnected = false;
@@ -141,7 +149,7 @@ public class SerialReader<T> {
 
                 try
                 {
-                    data = JsonUtility.FromJson<T>(jsonString);
+                    data = JsonUtility.FromJson<SerialData>(jsonString);
                 }
                 catch
                 {
@@ -151,7 +159,7 @@ public class SerialReader<T> {
         }
     }
 
-    public void Close() {
+    public void OnDestroy() {
         if (readTimer != null)
         {
             readTimer.Dispose();

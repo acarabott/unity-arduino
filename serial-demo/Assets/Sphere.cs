@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Sphere : MonoBehaviour {
-   public Reader reader;
+   public SerialReader reader;
 
 	void Update () {
 		if (!reader) { return; }
