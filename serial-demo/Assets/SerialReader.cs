@@ -11,7 +11,7 @@ using UnityEngine;
 // Set this to .NET 2.0, (not .NET 2.0 Subset)
 using System.IO.Ports;
 
-public class SerialReader : MonoBehaviour {
+public class SerialReader<T> : MonoBehaviour {
     [Header("Info")]
 
     public string status = "Disconnected";
@@ -22,7 +22,7 @@ public class SerialReader : MonoBehaviour {
     public string portName = "";
     public int baudRate = 9600;
     public double connectionTimeoutMs = 2000.0;
-    public SerialData data;
+    public T data;
 
     protected bool isConnected = false;
     protected bool isConnecting = false;
@@ -149,7 +149,7 @@ public class SerialReader : MonoBehaviour {
 
                 try
                 {
-                    data = JsonUtility.FromJson<SerialData>(jsonString);
+                    data = JsonUtility.FromJson<T>(jsonString);
                 }
                 catch
                 {
