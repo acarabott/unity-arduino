@@ -12,6 +12,7 @@ public struct SerialData
 public class Reader : MonoBehaviour
 {
     public SerialReader<SerialData> serialReader;
+    public SerialData data;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,8 @@ public class Reader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SerialData data = serialReader.data;
+        serialReader.Update();
+        data = serialReader.data;
     }
 
     void OnDestroy()

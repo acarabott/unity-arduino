@@ -15,25 +15,34 @@ public class SerialReader<T> {
     public List<string> portNames = new List<string> ();
     public string portName = "";
     public int baudRate = 9600;
-    public int readTimeoutMs = 100;
+    public double connectionTimeoutMs = 2000.0;
     public T data;
 
     protected bool isConnected = false;
     protected bool isConnecting = false;
-    protected System.Timers.Timer connectionTimer;
-    protected double connectionTimeoutMs = 2000.0;
-    protected bool isRunning = false;
     protected SerialPort serial;
+    protected System.Timers.Timer connectionTimer;
     protected System.Threading.Timer readTimer;
     StringBuilder stringBuilder = new StringBuilder();
 
-    public bool IsConnected
-    {
-        get { return isConnected; }
-        set { isConnected = value; }
+    public void Start() {
+        Connect();
     }
 
-    public void Start() {
+    public void Update() {
+        if (!isConnected && !isConnecting)
+        {
+            Connect();
+        }
+    }
+
+    protected void Connect() {
+        // reset state
+        isConnecting = true;
+        isConnected = false;
+        portNames.Clear();
+
+        // Get list of devices, set default device
         var platform = System.Environment.OSVersion.Platform;
 
         if (platform == System.PlatformID.MacOSX || platform == System.PlatformID.Unix)
@@ -58,14 +67,7 @@ public class SerialReader<T> {
             }
         }
 
-        Connect();
-        isRunning = true;
-    }
-
-    protected void Connect() {
-        isConnecting = true;
-        isConnected = false;
-
+        // Create reconnect timer
         connectionTimer = new System.Timers.Timer()
         {
             AutoReset = false,
@@ -116,11 +118,11 @@ public class SerialReader<T> {
                     16 // interval (ms)
                 );
 
-                IsConnected = true;
+                isConnected = true;
                 Debug.Log("connected");
             }
             catch {
-                IsConnected = false;
+                isConnected = false;
                 Debug.LogError("failed to connect to serial port " + portName);
             }
         }
