@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Timers;
+using System.Text;
 using UnityEngine;
 
 // Important! you need to change this setting:
@@ -23,7 +24,8 @@ public class SerialReader<T> {
     protected double connectionTimeoutMs = 2000.0;
     protected bool isRunning = false;
     protected SerialPort serial;
-    protected Thread thread;
+    protected System.Threading.Timer readTimer;
+    StringBuilder stringBuilder = new StringBuilder();
 
     public bool IsConnected
     {
@@ -57,8 +59,6 @@ public class SerialReader<T> {
         }
 
         Connect();
-        thread = new Thread(new ThreadStart(ThreadProcess));
-        thread.Start();
         isRunning = true;
     }
 
@@ -83,9 +83,38 @@ public class SerialReader<T> {
             try {
                 Debug.Log("connecting to port: " + portName + " @ " + baudRate);
                 serial = new SerialPort(portName, baudRate);
-
                 serial.Open();
-                serial.ReadLine(); // flush
+
+                // flush
+                bool isFlushed = false;
+                while (!isFlushed) {
+                    string serialData = serial.ReadExisting();
+                    if (serialData.Length == 0)
+                    {
+                        isFlushed = true;
+                    }
+                    else {
+                        foreach (char c in serialData)
+                        {
+                            if (c == '\n') {
+                                isFlushed = true;
+                            }
+                        }
+                    }
+                }
+
+                if (readTimer != null)
+                {
+                    readTimer.Dispose();
+                }
+
+                var autoEvent = new AutoResetEvent(false);
+                readTimer = new System.Threading.Timer(
+                    new TimerCallback(ReadFromSerial),
+                    autoEvent,
+                    0, // initial wait (ms)
+                    16 // interval (ms)
+                );
 
                 IsConnected = true;
                 Debug.Log("connected");
@@ -97,44 +126,38 @@ public class SerialReader<T> {
         }
     }
 
-    protected void ThreadProcess () {
-        while (isRunning)
+    protected void ReadFromSerial (object state) {
+        string serialData = serial.ReadExisting();
+        foreach (char c in serialData)
         {
-            // If we are connected then read the data
-            if (IsConnected) {
-                try {
-                    string jsonString = serial.ReadLine();
-                    try
-                    {
-                        data = JsonUtility.FromJson<T>(jsonString);
-                    }
-                    catch
-                    {
-                        Debug.LogError(jsonString);
-                    }
-                }
-                catch {
-                    Debug.LogError("No data from Serial");
-                }
-            }
-            else if (!isConnecting)
+            stringBuilder.Append(c);
+
+            if (c == '\n')
             {
-                Debug.Log("connect attempt");
-                Connect();
+                string jsonString = stringBuilder.ToString();
+                stringBuilder.Remove(0, stringBuilder.Length);
+
+                try
+                {
+                    data = JsonUtility.FromJson<T>(jsonString);
+                }
+                catch
+                {
+                    Debug.LogError(jsonString);
+                }
             }
         }
-
     }
 
     public void Close() {
-        if (thread.IsAlive)
+        if (readTimer != null)
         {
-            isRunning = false;
-            thread.Join();
-            if (serial != null && serial.IsOpen)
-            {
-                serial.Close();
-            }
+            readTimer.Dispose();
+        }
+
+        if (serial != null & serial.IsOpen)
+        {
+            serial.Close();
         }
     }
 }
