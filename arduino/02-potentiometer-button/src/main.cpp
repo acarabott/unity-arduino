@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 // Read two sensors, output the values via Serial separated by a comma
 
 const int potPin = A0;

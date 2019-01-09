@@ -1,6 +1,7 @@
-// Read two sensors, output values via Serial as JSON
+#include <Arduino.h>
+#include <ArduinoJson.h>
 
-#include "ArduinoJson-v5.13.2.hpp";
+// Read two sensors, output values via Serial as JSON
 
 const int potPin = A0;
 const int buttonPin = 2;
