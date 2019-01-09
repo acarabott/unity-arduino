@@ -4,7 +4,7 @@ const int potPin = A0;
 
 const float analogMax = 1023.0f;
 
-// the setup funciton runs once when you press reset
+// the setup function runs once when you press reset
 void setup() {
   // initialize serial communication at 9600 bits per second
   Serial.begin(9600);
