@@ -23,7 +23,6 @@ public class Reader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         SerialData data = serialReader.data;
     }
 
