@@ -1,5 +1,5 @@
 ﻿[System.Serializable]
-public struct SerialDataGeneric
+public struct SerialData
 {
     public float A0;
     public float A1;
@@ -10,11 +10,4 @@ public struct SerialDataGeneric
 
     public int D2;
     public int D4;
-}
-
-[System.Serializable]
-public struct SerialDataCustom
-{
-    public float potValue;
-    public bool isButtonDown;
 }

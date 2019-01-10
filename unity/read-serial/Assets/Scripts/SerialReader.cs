@@ -8,10 +8,11 @@ using UnityEngine;
 
 // Important! you need to change this setting:
 // Edit > ProjectSettings > Player > ApiCompatibilityLevel
-// Set this to .NET 2.0, (not .NET 2.0 Subset)
+// Set this to .NET 4.x, (not .NET Standard 2.0)
+
 using System.IO.Ports;
 
-public class SerialReader<T> : MonoBehaviour {
+public class SerialReader : MonoBehaviour {
     [Header("Info")]
 
     public string status = "Disconnected";
@@ -22,7 +23,7 @@ public class SerialReader<T> : MonoBehaviour {
     public string portName = "";
     public int baudRate = 9600;
     public double connectionTimeoutMs = 2000.0;
-    public T data;
+    public SerialData data;
 
     protected bool isConnected = false;
     protected bool isConnecting = false;
@@ -149,11 +150,11 @@ public class SerialReader<T> : MonoBehaviour {
 
                 try
                 {
-                    data = JsonUtility.FromJson<T>(jsonString);
+                    data = JsonUtility.FromJson<SerialData>(jsonString);
                 }
                 catch
                 {
-                    Debug.LogError(jsonString);
+                    Debug.LogError("bad data: " + jsonString);
                 }
             }
         }
