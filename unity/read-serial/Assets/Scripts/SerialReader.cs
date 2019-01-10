@@ -53,27 +53,22 @@ public class SerialReader : MonoBehaviour {
 
         // Get list of devices, set default device
         var platform = System.Environment.OSVersion.Platform;
+        var isMacOrUnix = platform == System.PlatformID.MacOSX ||
+                          platform == System.PlatformID.Unix;
+        var ports = isMacOrUnix
+            ? System.IO.Directory.GetFiles ("/dev/", "tty.*")
+            : SerialPort.GetPortNames();
+        var defaultPrefix = isMacOrUnix
+            ? "/dev/tty.usb"
+            : "COM";
 
-        if (platform == System.PlatformID.MacOSX || platform == System.PlatformID.Unix)
-        {
-            string[] ttys = System.IO.Directory.GetFiles ("/dev/", "tty.*");
-            foreach (string dev in ttys) {
-                availablePorts.Add(dev);
-
-                // Set default device
-                if (dev.StartsWith("/dev/tty.usb"))
-                {
-                    portName = dev;
-                    Debug.Log("default: " + portName);
-                }
-            }
-        }
-        else {
-            foreach (var port in SerialPort.GetPortNames())
-            {
-                availablePorts.Add(port);
-                // TODO windows default device
-            }
+        foreach (var port in ports) {
+           availablePorts.Add(port);
+           if (port.StartsWith(defaultPrefix))
+           {
+              portName = port;
+              Debug.Log("default: " + portName);
+           }
         }
 
         // Create reconnect timer
