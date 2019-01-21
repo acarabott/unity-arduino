@@ -1,5 +1,13 @@
 #include <Arduino.h>
 
+// Blinks the on board LED
+
+// Topics:
+// - variables: global vs Local
+// - pinMode
+// - writing to pins
+// - delay
+
 // Global variable
 const int ledPin = 13;
 

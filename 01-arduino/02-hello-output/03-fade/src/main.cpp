@@ -1,5 +1,12 @@
 #include <Arduino.h>
 
+// Fading an LED
+
+// Topics
+// - while loop
+// - non-const variables
+// - increment / decrement operators
+
 const int ledPin = 11;
 
 void setup() {
@@ -9,12 +16,12 @@ void setup() {
 void loop() {
   // fade up
   // -------
-  // int intensity = 0;
-  // while(intensity < 255) {
-  //   analogWrite(ledPin, intensity);
-  //   intensity += 1; // can use ++
-  //   delay(5);
-  // }
+  int intensity = 0;
+  while(intensity < 255) {
+    analogWrite(ledPin, intensity);
+    intensity += 1; // can use ++
+    delay(5);
+  }
 
   // reverse fade
   // ------------

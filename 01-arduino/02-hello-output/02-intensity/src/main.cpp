@@ -1,5 +1,10 @@
 #include <Arduino.h>
 
+// Sets the intensity of an LED
+
+// Topics
+// - analogWrite
+
 const int ledPin = 11;
 
 void setup() {
