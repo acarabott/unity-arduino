@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ObjectWatcher : MonoBehaviour
 {
+    public bool isLedOn = false;
     public GameObject watchedObject;
 
     protected SerialHandler serial;
-
-    protected float lastMessagetime = 0.0f;
 
     void Awake()
     {
@@ -22,12 +21,17 @@ public class ObjectWatcher : MonoBehaviour
     void Update()
     {
         if (serial == null) { return; }
-        if (watchedObject == null) { return; }
 
         SerialDataWrite data;
-        data.x = watchedObject.transform.position.x;
-        data.y = watchedObject.transform.position.y;
+        data.isLedOn = isLedOn;
         serial.WriteData(data);
-        lastMessagetime = Time.time;
+
+
+        // if (watchedObject == null) { return; }
+
+        // SerialDataWrite data;
+        // data.x = watchedObject.transform.position.x;
+        // data.y = watchedObject.transform.position.y;
+        // serial.WriteData(data);
     }
 }
