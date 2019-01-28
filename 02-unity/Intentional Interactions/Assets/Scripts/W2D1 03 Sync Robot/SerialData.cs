@@ -15,6 +15,10 @@ public struct SerialDataRead
 [System.Serializable]
 public struct SerialDataWrite
 {
+    public bool isLedOn;
+    public float ledBrightness;
+    public int servoAngle;
+
     public int baseAngle;
     public int jointAngle;
 }

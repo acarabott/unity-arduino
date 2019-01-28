@@ -34,6 +34,13 @@ public class PhysicalArmControl : MonoBehaviour
         SerialDataWrite data;
         data.baseAngle = (int)digitalArmControl.baseServoAngle;
         data.jointAngle = (int)digitalArmControl.jointServoAngle + jointAngleOffset;
+
+        // temp for compatibility
+        data.isLedOn = false;
+        data.ledBrightness = 1.0f;
+        data.servoAngle = 0;
+        // end temp
+
         serialHandler.WriteData(data);
     }
 }
