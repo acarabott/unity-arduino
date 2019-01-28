@@ -16,6 +16,7 @@ public struct SerialDataRead
 public struct SerialDataWrite
 {
     public bool isLedOn;
+    public float ledBrightness;
     // public float x;
     // public float y;
 }

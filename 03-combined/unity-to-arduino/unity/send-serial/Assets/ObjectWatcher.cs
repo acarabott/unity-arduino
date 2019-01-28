@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectWatcher : MonoBehaviour
 {
     public bool isLedOn = false;
+    public float ledBrightness = 1.0f;
     public GameObject watchedObject;
 
     protected SerialHandler serial;
@@ -24,7 +25,10 @@ public class ObjectWatcher : MonoBehaviour
 
         SerialDataWrite data;
         data.isLedOn = isLedOn;
+        data.ledBrightness = Mathf.Clamp01(ledBrightness);
         serial.WriteData(data);
+
+
 
 
         // if (watchedObject == null) { return; }
