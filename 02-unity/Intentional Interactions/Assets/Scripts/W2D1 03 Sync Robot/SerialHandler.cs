@@ -172,8 +172,8 @@ public class SerialHandler : MonoBehaviour {
                 catch
                 {
                     // No serial data to read
-                    status = "connected: waiting for serial data";
                 }
+                status = "connected: waiting for serial data";
 
                 if (readTimer != null) { readTimer.Dispose(); }
                 var autoEvent = new AutoResetEvent(false);
