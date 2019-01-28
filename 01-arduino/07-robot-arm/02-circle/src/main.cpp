@@ -8,7 +8,7 @@
 // - including a custom library
 
 const float ARM_LENGTH = 11.0f;
-const float JOINT_OFFSET_DEGREES = 0.0f;
+const int JOINT_OFFSET_DEGREES = 0;
 
 const int baseServoPin = 3;
 Servo baseServo;

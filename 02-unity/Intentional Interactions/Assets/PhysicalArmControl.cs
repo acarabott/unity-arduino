@@ -7,7 +7,9 @@ public class PhysicalArmControl : MonoBehaviour
     SerialHandler serialHandler;
     protected DigitalArmControl digitalArmControl;
 
-    public int jointAngleOffset = -30;
+    // public int jointAngleOffset = -30;
+    public int jointAngleOffset = 0;
+
     void Awake()
     {
        digitalArmControl = gameObject.GetComponent<DigitalArmControl>();
@@ -30,7 +32,7 @@ public class PhysicalArmControl : MonoBehaviour
         if (serialHandler == null) { return; }
 
         SerialDataWrite data;
-        data.baseAngle = 180 - (int)digitalArmControl.baseServoAngle;
+        data.baseAngle = (int)digitalArmControl.baseServoAngle;
         data.jointAngle = (int)digitalArmControl.jointServoAngle + jointAngleOffset;
         serialHandler.WriteData(data);
     }
