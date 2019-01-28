@@ -1,0 +1,22 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+// Module Note: This script writes "Hello World in the console
+
+
+public class ConsoleExperiments : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        Debug.Log("Hello World!");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+       
+    }
+}
