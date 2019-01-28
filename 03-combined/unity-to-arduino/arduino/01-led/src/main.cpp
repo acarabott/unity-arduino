@@ -13,7 +13,7 @@ void loop() {
   ArduinoJson::JsonObject& obj = jsonBuffer.parseObject(Serial);
   if (obj.success()) {
     const bool isLedOn = obj["isLedOn"];
-    const float ledBrightness = obj["ledBrightness"];
+    const float ledBrightness = constrain(obj["ledBrightness"], 0.f, 1.f);
 
     const int ledValue = isLedOn
       ? ledBrightness * 255
