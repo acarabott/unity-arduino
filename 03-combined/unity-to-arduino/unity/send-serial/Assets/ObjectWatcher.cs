@@ -6,6 +6,7 @@ public class ObjectWatcher : MonoBehaviour
 {
     public bool isLedOn = false;
     public float ledBrightness = 1.0f;
+    public int servoAngle = 0;
     public GameObject watchedObject;
 
     protected SerialHandler serial;
@@ -23,19 +24,13 @@ public class ObjectWatcher : MonoBehaviour
     {
         if (serial == null) { return; }
 
-        SerialDataWrite data;
-        data.isLedOn = isLedOn;
-        data.ledBrightness = Mathf.Clamp01(ledBrightness);
-        serial.WriteData(data);
-
-
-
-
-        // if (watchedObject == null) { return; }
-
         // SerialDataWrite data;
-        // data.x = watchedObject.transform.position.x;
-        // data.y = watchedObject.transform.position.y;
+        // data.isLedOn = isLedOn;
+        // data.ledBrightness = Mathf.Clamp01(ledBrightness);
         // serial.WriteData(data);
+
+        SerialDataWrite data;
+        data.servoAngle = servoAngle;
+        serial.WriteData(data);
     }
 }
