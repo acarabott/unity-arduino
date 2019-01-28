@@ -16,12 +16,13 @@ public class ObjectPositionToCartesian : MonoBehaviour
 
     void Update()
     {
-        if (gameObjectToFollow == null) Debug.Log("There is nothing to follow in gameObjectToFollow!");
-
-        else
+        if (gameObjectToFollow == null)
         {
-            myCartesianControl.xPos = -gameObjectToFollow.transform.position.x;
-            myCartesianControl.zPos = gameObjectToFollow.transform.position.y;
+            Debug.Log("There is nothing to follow in 'Game Object To Follow'");
+            return;
         }
+
+        myCartesianControl.xPos = -gameObjectToFollow.transform.position.x;
+        myCartesianControl.yPos = gameObjectToFollow.transform.position.y;
     }
 }
