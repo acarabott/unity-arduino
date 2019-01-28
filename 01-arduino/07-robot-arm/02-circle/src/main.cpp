@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <Servo.h>
-#include "../../getArmAngles.h"
+#include "../include/getArmAngles.h"
 
 // Drawing a circle in the air with the robot arm
 
@@ -8,7 +8,7 @@
 // - including a custom library
 
 const float ARM_LENGTH = 11.0f;
-const float JOINT_OFFSET_DEGREES = 30.0f;
+const float JOINT_OFFSET_DEGREES = 0.0f;
 
 const int baseServoPin = 3;
 Servo baseServo;
