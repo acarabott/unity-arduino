@@ -296,6 +296,8 @@ MonoBehaviour:
   isLedOn: 0
   ledBrightness: 0
   servoAngle: 0
+  baseAngle: 0
+  jointAngle: 0
   watchedObject: {fileID: 1197204660}
 --- !u!114 &655480490
 MonoBehaviour:
@@ -312,7 +314,7 @@ MonoBehaviour:
   status: Disconnected
   availablePorts: []
   portName: 
-  baudRate: 115200
+  baudRate: 9600
   connectionTimeoutMs: 2000
   data:
     A0: 0
