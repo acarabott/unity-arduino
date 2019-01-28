@@ -1,5 +1,5 @@
 ﻿[System.Serializable]
-public struct SerialData
+public struct SerialDataRead
 {
     public float A0;
     public float A1;
@@ -10,4 +10,15 @@ public struct SerialData
 
     public int D2;
     public int D4;
+}
+
+[System.Serializable]
+public struct SerialDataWrite
+{
+    // public bool isLedOn;
+    // public float ledBrightness;
+    // public int servoAngle;
+
+    public int baseAngle;
+    public int jointAngle;
 }
