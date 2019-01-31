@@ -38,8 +38,12 @@ void loop() {
   xPos = (xPos * smoothing) + ((1 - smoothing) * xPosNew);
   yPos = (yPos * smoothing) + ((1 - smoothing) * yPosNew);
 
+  // this returns a struct, which is multiple pieces of data collected together
+  // into a "data structure"
   const auto armAngles = getArmAngles(xPos, yPos, ARM_LENGTH);
 
+  // access the pieces of data using the dot notation
+  // open getArmAngles.h to see the data structure
   baseServo.write(armAngles.base);
   jointServo.write(armAngles.joint - JOINT_OFFSET_DEGREES);
 }

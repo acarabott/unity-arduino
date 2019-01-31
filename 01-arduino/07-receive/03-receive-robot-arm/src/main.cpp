@@ -23,9 +23,13 @@ void loop() {
   if (obj.success()) {
     baseAngle = constrain(obj["baseAngle"], 0, 180); // never trust your input values
     jointAngle = constrain(obj["jointAngle"], 0, 180); // never trust your input values
+
+    // use the builtin LED for debugging
+    digitalWrite(LED_BUILTIN, HIGH);
   }
   else {
-    digitalWrite(13, LOW);
+
+    digitalWrite(LED_BUILTIN, LOW);
   }
 
   baseServo.write(baseAngle);
