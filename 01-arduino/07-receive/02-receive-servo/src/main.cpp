@@ -2,7 +2,7 @@
 #include <ArduinoJson.h>
 #include <Servo.h>
 
-const int servoPin = 9;
+const int servoPin = 3;
 Servo servo;
 
 void setup() {
