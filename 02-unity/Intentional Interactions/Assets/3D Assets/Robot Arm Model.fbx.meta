@@ -1,34 +1,168 @@
 fileFormatVersion: 2
 guid: 941b50a6b0c2741e4b1114ea54f1ac5c
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     100002: duckBeak
     100004: duckBody
     100006: duckEyes
     100008: duckPupils
+    100010: arduinoBoard
+    100012: arduinoMetal
+    100014: arduinoPlastic
+    100016: Base
+    100018: baseAcrylic
+    100020: baseServo
+    100022: baseServoBody
+    100024: baseServoRotor
+    100026: firstArm
+    100028: firstArmAcrylic
+    100030: jointServo
+    100032: jointServoBody
+    100034: jointServoRotor
+    100036: LED
+    100038: ledBody
+    100040: ledMetal
+    100042: secondArm
+    100044: secondArmAcrylic
+    100046: Breadboard
+    100048: movingWires
+    100050: movingWiresJoint4
+    100052: movingWiresJoint5
+    100054: movingWiresJoint_1
+    100056: movingWiresJoint_2
+    100058: movingWiresJoint_3
+    100060: movingWiresRoot
+    100062: servo
+    100064: servo_2
+    100066: servoBody
+    100068: servoBody_2
+    100070: servoMetal
+    100072: servoMetal_2
+    100074: staticWires_1
     400000: //RootNode
     400002: duckBeak
     400004: duckBody
     400006: duckEyes
     400008: duckPupils
+    400010: arduinoBoard
+    400012: arduinoMetal
+    400014: arduinoPlastic
+    400016: Base
+    400018: baseAcrylic
+    400020: baseServo
+    400022: baseServoBody
+    400024: baseServoRotor
+    400026: firstArm
+    400028: firstArmAcrylic
+    400030: jointServo
+    400032: jointServoBody
+    400034: jointServoRotor
+    400036: LED
+    400038: ledBody
+    400040: ledMetal
+    400042: secondArm
+    400044: secondArmAcrylic
+    400046: Breadboard
+    400048: movingWires
+    400050: movingWiresJoint4
+    400052: movingWiresJoint5
+    400054: movingWiresJoint_1
+    400056: movingWiresJoint_2
+    400058: movingWiresJoint_3
+    400060: movingWiresRoot
+    400062: servo
+    400064: servo_2
+    400066: servoBody
+    400068: servoBody_2
+    400070: servoMetal
+    400072: servoMetal_2
+    400074: staticWires_1
     2100000: Rat textile 1
     2100002: Arch_056_053_13
     2100004: Arch_056_053_12
     2100006: Coated Ceramic
+    2100008: Acrylic
+    2100010: Metal.2
+    2100012: Mat
+    2100014: Mat.1
+    2100016: No Name
+    2100018: anod&katod
     2300000: duckBeak
     2300002: duckBody
     2300004: duckEyes
     2300006: duckPupils
+    2300008: arduinoMetal
+    2300010: arduinoPlastic
+    2300012: baseAcrylic
+    2300014: baseServoBody
+    2300016: baseServoRotor
+    2300018: firstArmAcrylic
+    2300020: jointServoBody
+    2300022: jointServoRotor
+    2300024: ledBody
+    2300026: ledMetal
+    2300028: secondArmAcrylic
+    2300030: Breadboard
+    2300032: movingWires
+    2300034: servo
+    2300036: servo_2
+    2300038: servoBody
+    2300040: servoBody_2
+    2300042: servoMetal
+    2300044: servoMetal_2
+    2300046: staticWires_1
     3300000: duckBeak
     3300002: duckBody
     3300004: duckEyes
     3300006: duckPupils
+    3300008: arduinoMetal
+    3300010: arduinoPlastic
+    3300012: baseAcrylic
+    3300014: baseServoBody
+    3300016: baseServoRotor
+    3300018: firstArmAcrylic
+    3300020: jointServoBody
+    3300022: jointServoRotor
+    3300024: ledBody
+    3300026: ledMetal
+    3300028: secondArmAcrylic
+    3300030: Breadboard
+    3300032: movingWires
+    3300034: servo
+    3300036: servo_2
+    3300038: servoBody
+    3300040: servoBody_2
+    3300042: servoMetal
+    3300044: servoMetal_2
+    3300046: staticWires_1
     4300000: duckBody
     4300002: duckEyes
     4300004: duckPupils
     4300006: duckBeak
+    4300008: baseAcrylic
+    4300010: arduinoMetal
+    4300012: arduinoPlastic
+    4300014: baseServoBody
+    4300016: baseServoRotor
+    4300018: firstArmAcrylic
+    4300020: jointServoBody
+    4300022: jointServoRotor
+    4300024: secondArmAcrylic
+    4300026: ledBody
+    4300028: ledMetal
+    4300030: movingWires
+    4300032: staticWires_1
+    4300034: Breadboard
+    4300036: servoMetal
+    4300038: servo
+    4300040: servoBody
+    4300042: servoMetal_2
+    4300044: servo_2
+    4300046: servoBody_2
+    11100000: //RootNode
+    13700000: movingWires
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -48,6 +182,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -59,9 +194,10 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -79,11 +215,16 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -98,12 +239,11 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 1
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

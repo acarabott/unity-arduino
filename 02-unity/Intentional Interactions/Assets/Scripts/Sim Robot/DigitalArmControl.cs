@@ -27,6 +27,6 @@ public class DigitalArmControl : MonoBehaviour
 
         // Apply rotation in degrees from baseServoAngle and jointServoAngle
         baseServoGameObject.transform.Rotate(0, 0, -dynamicBaseServoAngle);
-        jointServoGameObject.transform.Rotate(0, 0, -dynamicJointServoAngle);
+        jointServoGameObject.transform.Rotate(0, 0, 180-dynamicJointServoAngle);
     }
 }
