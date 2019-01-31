@@ -22,7 +22,12 @@ void loop() {
   const auto potValue = analogRead(potPin);
   Serial.println(potValue);
 
+  // map the input range to the output range
   const int intensity = map(potValue, 0, inputMax, 0, outputMax);
+
+  // print the value out for debug
   Serial.println(intensity);
+
+  // set the LED
   analogWrite(ledPin, intensity);
 }

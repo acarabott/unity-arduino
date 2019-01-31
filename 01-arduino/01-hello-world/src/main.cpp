@@ -15,5 +15,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+
+  // Uncomment this line to constantly print loop
   // Serial.println("loop");
 }
