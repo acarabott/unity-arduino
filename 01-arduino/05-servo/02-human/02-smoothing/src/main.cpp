@@ -8,6 +8,9 @@
 // - smoothing signals
 // - float
 
+// Challenges
+// - adapt for two servos and photoresistors
+
 const int servoPin = 3; // pwm pin
 Servo servo;
 

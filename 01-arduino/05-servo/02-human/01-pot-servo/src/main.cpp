@@ -7,6 +7,9 @@
 // - printing debug information
 // - good vs bad mapping
 
+// Challenges
+// - adapt for two servos / pots
+
 const int servoPin = 3; // pwm pin
 Servo servo;
 
