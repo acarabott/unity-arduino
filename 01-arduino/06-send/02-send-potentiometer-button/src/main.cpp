@@ -24,7 +24,6 @@ void loop() {
   const int buttonState = digitalRead(buttonPin);
 
   // print the scaled pot value and the button state, separated by a comma
-  Serial.print(potScaled);
-  Serial.print(",");
-  Serial.println(buttonState);
+  String serialData = String(potScaled) + "," + String(buttonState);
+  Serial.println(serialData);
 }
