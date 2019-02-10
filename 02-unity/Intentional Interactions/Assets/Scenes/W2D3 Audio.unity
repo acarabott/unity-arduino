@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 1610425646}
   - component: {fileID: 1610425647}
   m_Layer: 0
-  m_Name: AudioListener
+  m_Name: AudioAnalyser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -307,6 +307,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7376bf66060c841e79b02c4ec98a5a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputDevice: 
+  audioMixer: {fileID: 24100000, guid: 977f628797bc54e1cae8ff7d5aa273da, type: 2}
+  sensitivity: 1
   rootMeanSquared: 0
 --- !u!82 &1610425647
 AudioSource:
@@ -317,7 +320,8 @@ AudioSource:
   m_GameObject: {fileID: 1610425644}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243753825436522654, guid: 977f628797bc54e1cae8ff7d5aa273da,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 2cb7ba4a550104dca8a2e02a289b7461, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
