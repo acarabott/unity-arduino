@@ -22,13 +22,13 @@ void loop() {
   ArduinoJson::JsonObject& jsonData = jsonBuffer.createObject();
 
   // add the analog data
-  jsonData["A0"] = analogRead(A0) / ANALOG_MAX;
+  jsonData["A0"] = 666.6f;
 
-  jsonData["A1"] = analogRead(A1) / ANALOG_MAX;
-  jsonData["A2"] = analogRead(A2) / ANALOG_MAX;
-  jsonData["A3"] = analogRead(A3) / ANALOG_MAX;
-  jsonData["A4"] = analogRead(A4) / ANALOG_MAX;
-  jsonData["A5"] = analogRead(A5) / ANALOG_MAX;
+  jsonData["A1"] = 666.6f;
+  jsonData["A2"] = 666.6f;
+  jsonData["A3"] = 666.6f;
+  jsonData["A4"] = 666.6f;
+  jsonData["A5"] = 666.6f;
 
   // add the digital data
   jsonData["D2"] = digitalRead(D2);

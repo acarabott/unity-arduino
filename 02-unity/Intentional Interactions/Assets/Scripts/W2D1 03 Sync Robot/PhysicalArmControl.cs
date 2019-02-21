@@ -10,10 +10,10 @@ public class PhysicalArmControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SerialDataWrite data;
-        data.baseAngle = (int)digitalArmControl.baseServoAngle;
-        data.jointAngle = (int)digitalArmControl.jointServoAngle;
+        // SerialDataWrite data;
+        // data.baseAngle = (int)digitalArmControl.baseServoAngle;
+        // data.jointAngle = (int)digitalArmControl.jointServoAngle;
 
-        serial.WriteData(data);
+        // serial.WriteData(data);
     }
 }

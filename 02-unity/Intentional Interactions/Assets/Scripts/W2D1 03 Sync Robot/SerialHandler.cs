@@ -20,21 +20,21 @@ public class SerialHandler : MonoBehaviour {
     public List<string> availablePorts = new List<string> ();
 
     [Header("Options (must set before Play)")]
-    public string portName = "";
+    public List<string> portName = new List<string>();
     public int baudRate = 115200;
     public double connectionTimeoutMs = 2000.0;
     public SerialDataRead data;
-    public bool isReadEnabled = false;
 
     protected bool isConnected = false;
     protected bool isConnecting = false;
-    protected SerialPort serial;
+    protected Dictionary<string, SerialPort> serial = new Dictionary<string, SerialPort>();
     protected System.Timers.Timer connectionTimer;
     protected System.Threading.Timer readTimer;
     protected StringBuilder stringBuilder = new StringBuilder();
 
-    protected System.Threading.Timer writeTimer;
-    protected Queue<string> writeQueue = new Queue<string>();
+    protected Dictionary<string, System.Threading.Timer> writeTimer = new Dictionary<string, System.Threading.Timer>();
+    protected Dictionary<string, Queue<string>> writeQueue = new Dictionary<string, Queue<string>>();
+    public Dictionary<string, SerialDataWrite> writeData = new Dictionary<string, SerialDataWrite>();
 
     void Start()
     {
@@ -57,10 +57,10 @@ public class SerialHandler : MonoBehaviour {
             readTimer.Dispose();
         }
 
-        if (serial != null & serial.IsOpen)
-        {
-            serial.Close();
-        }
+        // if (serial != null & serial.IsOpen)
+        // {
+        //     serial.Close();
+        // }
     }
 
     public void Write(string data)
@@ -70,11 +70,13 @@ public class SerialHandler : MonoBehaviour {
             Debug.LogError("Serial port is not connected");
             return;
         }
-
-        serial.Write(data);
+        foreach (var s in serial)
+        {
+            s.Value.Write(data);
+        }
     }
 
-    public void WriteLine(string data)
+    public void WriteLine(string data, string port)
     {
         if (!isConnected)
         {
@@ -82,13 +84,14 @@ public class SerialHandler : MonoBehaviour {
             return;
         }
 
-        writeQueue.Enqueue(data);
+        writeQueue[port].Enqueue(data);
     }
 
-    public void WriteData(SerialDataWrite data)
+    public void WriteData(SerialDataWrite data, string port)
     {
         var json = JsonUtility.ToJson(data);
-        WriteLine(json);
+        WriteLine(json, port);
+        writeData[port] = data;
     }
 
     protected void Connect() {
@@ -113,8 +116,8 @@ public class SerialHandler : MonoBehaviour {
            availablePorts.Add(port);
            if (port.StartsWith(defaultPrefix, StringComparison.Ordinal))
            {
-              portName = port;
-              Debug.Log("default serial port: " + portName);
+               portName.Add(port);
+               writeQueue[port] = new Queue<string>();
            }
         }
 
@@ -131,15 +134,15 @@ public class SerialHandler : MonoBehaviour {
 
         connectionTimer.Enabled = true;
 
-
-        if (portName != "")
+        foreach (var port in portName)
         {
             try {
                 Debug.Log("connecting to port: " + portName + " @ " + baudRate);
-                serial = new SerialPort(portName, baudRate);
-                serial.ReadTimeout = 10;
-                serial.WriteTimeout = 10;
-                serial.Open();
+                SerialPort sp = new SerialPort(port, baudRate);
+                serial[port] = sp;
+                sp.ReadTimeout = 10;
+                sp.WriteTimeout = 10;
+                sp.Open();
                 isConnected = true;
                 status = "Connected";
             }
@@ -150,95 +153,25 @@ public class SerialHandler : MonoBehaviour {
 
             if (isConnected)
             {
-                try
-                {
-                    // flush
-                    bool isFlushed = false;
-                    status = "flushing";
-                    while (!isFlushed) {
-                        string serialString = serial.ReadExisting();
-                        if (serialString.Length == 0)
-                        {
-                            isFlushed = true;
-                        }
-                        else {
-                            foreach (char c in serialString)
-                            {
-                                if (c == '\n') {
-                                    isFlushed = true;
-                                }
-                            }
-                        }
-                    }
-                    status = "flushed";
-                }
-                catch
-                {
-                    // No serial data to read
-                }
                 status = "connected: waiting for serial data";
-
-                if (readTimer != null) { readTimer.Dispose(); }
-                var autoEvent = new AutoResetEvent(false);
-                readTimer = new System.Threading.Timer(
-                    new TimerCallback(ReadFromSerial),
-                    autoEvent,
-                    1000, // initial wait (ms)
-                    16 // interval (ms)
-                );
-
-                if (writeTimer != null) { writeTimer.Dispose(); }
+                if (writeTimer.ContainsKey(port))
+                {
+                    writeTimer[port].Dispose();
+                }
                 var writeEvent = new AutoResetEvent(false);
-                writeTimer = new System.Threading.Timer(
-                    new TimerCallback(WriteToSerial),
+                writeTimer[port] = new System.Threading.Timer(
+                    new TimerCallback((object state) => {
+                        while (writeQueue[port].Count > 0)
+                        {
+                            string dataToWrite = writeQueue[port].Dequeue();
+                            serial[port].WriteLine(dataToWrite);
+                        }
+                    }),
                     writeEvent,
                     3000, // initial wait (ms)
                     16 // interval (ms)
                 );
             }
         }
-    }
-
-    protected void ReadFromSerial (object state)
-    {
-        if (!isReadEnabled) { return; }
-
-        try
-        {
-            string serialData = serial.ReadExisting();
-            foreach (char c in serialData)
-            {
-                stringBuilder.Append(c);
-
-                if (c == '\n')
-                {
-                    string jsonString = stringBuilder.ToString();
-                    stringBuilder.Remove(0, stringBuilder.Length);
-
-                    try
-                    {
-                        data = JsonUtility.FromJson<SerialDataRead>(jsonString);
-                    }
-                    catch
-                    {
-                        Debug.LogError("non standard data: " + jsonString);
-                    }
-                }
-            }
-        }
-        catch
-        {
-            // read timeout
-        }
-    }
-
-    protected void WriteToSerial (object state)
-    {
-        while (writeQueue.Count > 0)
-        {
-            string dataToWrite = writeQueue.Dequeue();
-            serial.WriteLine(dataToWrite);
-        }
-
     }
 }

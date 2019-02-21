@@ -38,12 +38,12 @@ public class ObjectWatcher : MonoBehaviour
         // serial.WriteData(data);
 
         // 03-robot arm
-        SerialDataWrite data;
-        data.baseAngle = baseAngle;
-        data.jointAngle = jointAngle;
+        // SerialDataWrite data;
+        // data.baseAngle = baseAngle;
+        // data.jointAngle = jointAngle;
         //data.isLedOn = isLedOn;
         //data.ledBrightness = ledBrightness;
         //data.servoAngle = servoAngle;
-        serial.WriteData(data);
+        // serial.WriteData(data);
     }
 }
