@@ -21,9 +21,10 @@ public class SerialHandler : MonoBehaviour {
 
     [Header("Options (must set before Play)")]
     public string portName = "";
-    public int baudRate = 9600;
+    public int baudRate = 115200;
     public double connectionTimeoutMs = 2000.0;
     public SerialDataRead data;
+    public bool isReadEnabled = false;
 
     protected bool isConnected = false;
     protected bool isConnecting = false;
@@ -31,6 +32,9 @@ public class SerialHandler : MonoBehaviour {
     protected System.Timers.Timer connectionTimer;
     protected System.Threading.Timer readTimer;
     protected StringBuilder stringBuilder = new StringBuilder();
+
+    protected System.Threading.Timer writeTimer;
+    protected Queue<string> writeQueue = new Queue<string>();
 
     void Start()
     {
@@ -78,14 +82,13 @@ public class SerialHandler : MonoBehaviour {
             return;
         }
 
-        serial.WriteLine(data);
+        writeQueue.Enqueue(data);
     }
 
     public void WriteData(SerialDataWrite data)
     {
         var json = JsonUtility.ToJson(data);
-        serial.Write(json);
-        serial.Write("\n");
+        WriteLine(json);
     }
 
     protected void Connect() {
@@ -108,7 +111,7 @@ public class SerialHandler : MonoBehaviour {
 
         foreach (var port in ports) {
            availablePorts.Add(port);
-           if (port.StartsWith(defaultPrefix))
+           if (port.StartsWith(defaultPrefix, StringComparison.Ordinal))
            {
               portName = port;
               Debug.Log("default serial port: " + portName);
@@ -134,8 +137,8 @@ public class SerialHandler : MonoBehaviour {
             try {
                 Debug.Log("connecting to port: " + portName + " @ " + baudRate);
                 serial = new SerialPort(portName, baudRate);
-                serial.ReadTimeout = 1000;
-                serial.WriteTimeout = 1000;
+                serial.ReadTimeout = 10;
+                serial.WriteTimeout = 10;
                 serial.Open();
                 isConnected = true;
                 status = "Connected";
@@ -183,13 +186,23 @@ public class SerialHandler : MonoBehaviour {
                     1000, // initial wait (ms)
                     16 // interval (ms)
                 );
+
+                if (writeTimer != null) { writeTimer.Dispose(); }
+                var writeEvent = new AutoResetEvent(false);
+                writeTimer = new System.Threading.Timer(
+                    new TimerCallback(WriteToSerial),
+                    writeEvent,
+                    3000, // initial wait (ms)
+                    16 // interval (ms)
+                );
             }
         }
     }
 
-
     protected void ReadFromSerial (object state)
     {
+        if (!isReadEnabled) { return; }
+
         try
         {
             string serialData = serial.ReadExisting();
@@ -217,5 +230,15 @@ public class SerialHandler : MonoBehaviour {
         {
             // read timeout
         }
+    }
+
+    protected void WriteToSerial (object state)
+    {
+        while (writeQueue.Count > 0)
+        {
+            string dataToWrite = writeQueue.Dequeue();
+            serial.WriteLine(dataToWrite);
+        }
+
     }
 }

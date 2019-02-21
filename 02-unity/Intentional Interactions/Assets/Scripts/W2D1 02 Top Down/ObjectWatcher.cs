@@ -41,9 +41,9 @@ public class ObjectWatcher : MonoBehaviour
         SerialDataWrite data;
         data.baseAngle = baseAngle;
         data.jointAngle = jointAngle;
-        data.isLedOn = isLedOn;
-        data.ledBrightness = ledBrightness;
-        data.servoAngle = servoAngle;
+        //data.isLedOn = isLedOn;
+        //data.ledBrightness = ledBrightness;
+        //data.servoAngle = servoAngle;
         serial.WriteData(data);
     }
 }
