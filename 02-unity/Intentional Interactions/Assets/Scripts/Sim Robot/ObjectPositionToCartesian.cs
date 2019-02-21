@@ -33,7 +33,7 @@ public class ObjectPositionToCartesian : MonoBehaviour
             return;
         }
 
-        myCartesianControl.xPos = -gameObjectToFollow.transform.position.x;
-        myCartesianControl.yPos = gameObjectToFollow.transform.position.y;
+        myCartesianControl.xPos = -gameObjectToFollow.transform.position.x - transform.position.x;
+        myCartesianControl.yPos = gameObjectToFollow.transform.position.y - transform.position.y;
     }
 }
