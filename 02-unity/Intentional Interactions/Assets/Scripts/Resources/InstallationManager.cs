@@ -41,22 +41,43 @@ public class InstallationManager : MonoBehaviour
 
         for(int i = 0; i < wideCircle.Length;i++)
         {
-            if (autoMotion) wideCircle[i].GetComponent<CartesianControl>().xPos = Mathf.Cos(Time.time * speed) * circleRadius + circleCenterOnX;
-            if (autoMotion) wideCircle[i].GetComponent<CartesianControl>().yPos = Mathf.Sin(Time.time * speed) * circleRadius + circleCenterOnY;
+            if (autoMotion)
+            {
+                wideCircle[i].GetComponent<ObjectPositionToCartesian>().enabled = false;
+                wideCircle[i].GetComponent<CartesianControl>().xPos = Mathf.Cos(Time.time * speed) * circleRadius + circleCenterOnX;
+                wideCircle[i].GetComponent<CartesianControl>().yPos = Mathf.Sin(Time.time * speed) * circleRadius + circleCenterOnY;
+            }
+
+            else wideCircle[i].GetComponent<ObjectPositionToCartesian>().enabled = true;
+
             wideCircle[i].GetComponent<DigitalArmControl>().ledIntensity = wideLedIntensity;
         }
 
         for (int i = 0; i < midCircle.Length; i++)
         {
-            if (autoMotion) midCircle[i].GetComponent<CartesianControl>().xPos = Mathf.Cos(Time.time * speed) * circleRadius + circleCenterOnX;
-            if (autoMotion) midCircle[i].GetComponent<CartesianControl>().yPos = Mathf.Sin(Time.time * speed * 2f) * circleRadius + circleCenterOnY;
+            if (autoMotion)
+            {
+                midCircle[i].GetComponent<ObjectPositionToCartesian>().enabled = false;
+                midCircle[i].GetComponent<CartesianControl>().xPos = Mathf.Cos(Time.time * speed) * circleRadius + circleCenterOnX;
+                midCircle[i].GetComponent<CartesianControl>().yPos = Mathf.Sin(Time.time * speed * 2f) * circleRadius + circleCenterOnY;
+            }
+
+            else midCircle[i].GetComponent<ObjectPositionToCartesian>().enabled = true;
+
             midCircle[i].GetComponent<DigitalArmControl>().ledIntensity = midLedIntensity;
         }
 
         for (int i = 0; i < narrowCircle.Length; i++)
         {
-            if (autoMotion) narrowCircle[i].GetComponent<CartesianControl>().xPos = Mathf.Cos(Time.time * speed) * circleRadius + circleCenterOnX;
-            if (autoMotion) narrowCircle[i].GetComponent<CartesianControl>().yPos = Mathf.Sin(Time.time * speed *3f) * circleRadius + circleCenterOnY;
+            if (autoMotion)
+            {
+                narrowCircle[i].GetComponent<ObjectPositionToCartesian>().enabled = false;
+                narrowCircle[i].GetComponent<CartesianControl>().xPos = Mathf.Cos(Time.time * speed) * circleRadius + circleCenterOnX;
+                narrowCircle[i].GetComponent<CartesianControl>().yPos = Mathf.Sin(Time.time * speed * 3f) * circleRadius + circleCenterOnY;
+            }
+
+            else narrowCircle[i].GetComponent<ObjectPositionToCartesian>().enabled = true;
+
             narrowCircle[i].GetComponent<DigitalArmControl>().ledIntensity = narrowLedIntensity;
         }
 
