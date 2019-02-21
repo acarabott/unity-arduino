@@ -7,7 +7,7 @@ const int D2 = 2;
 const int D4 = 4;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   while (!Serial) continue;
 
   pinMode(2, INPUT);
@@ -23,6 +23,7 @@ void loop() {
 
   // add the analog data
   jsonData["A0"] = analogRead(A0) / ANALOG_MAX;
+
   jsonData["A1"] = analogRead(A1) / ANALOG_MAX;
   jsonData["A2"] = analogRead(A2) / ANALOG_MAX;
   jsonData["A3"] = analogRead(A3) / ANALOG_MAX;

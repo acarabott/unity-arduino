@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioResponder : MonoBehaviour
 {
-    public AudioAnalyser audioAnalyser;
+    public AudioAnalyserOld audioAnalyser;
     public float scale = 1.0f;
 
     // Start is called before the first frame update

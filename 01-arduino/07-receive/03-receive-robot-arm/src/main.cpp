@@ -11,7 +11,7 @@ Servo jointServo;
 int jointAngle = 90;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   baseServo.attach(baseServoPin);
   jointServo.attach(jointServoPin);
 }

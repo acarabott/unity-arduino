@@ -10,6 +10,7 @@ public struct SerialDataRead
 
     public int D2;
     public int D4;
+    public int D7;
 }
 
 [System.Serializable]

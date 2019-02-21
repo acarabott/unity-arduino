@@ -460,6 +460,7 @@ GameObject:
   - component: {fileID: 709220639}
   - component: {fileID: 709220641}
   - component: {fileID: 709220640}
+  - component: {fileID: 709220642}
   m_Layer: 0
   m_Name: Script Holder
   m_TagString: Untagged
@@ -558,7 +559,7 @@ MonoBehaviour:
   status: Disconnected
   availablePorts: []
   portName: 
-  baudRate: 9600
+  baudRate: 115200
   connectionTimeoutMs: 2000
   data:
     A0: 0
@@ -569,6 +570,8 @@ MonoBehaviour:
     A5: 0
     D2: 0
     D4: 0
+    D7: 0
+  isReadEnabled: 1
 --- !u!114 &709220641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,6 +582,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbd5db775a9b940179564fe1d3620385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serial: {fileID: 709220640}
+  digitalArmControl: {fileID: 709220635}
+--- !u!114 &709220642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709220634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8b6d3c721de49d8a9b5ca48d22e5df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &772820908
