@@ -25,6 +25,8 @@ public class InstallationManager : MonoBehaviour
     public float midLedIntensity;
     public float narrowLedIntensity;
 
+    public bool autoMotion;
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,22 +41,22 @@ public class InstallationManager : MonoBehaviour
 
         for(int i = 0; i < wideCircle.Length;i++)
         {
-            wideCircle[i].GetComponent<CartesianControl>().xPos = Mathf.Cos(Time.time * speed) * circleRadius + circleCenterOnX;
-            wideCircle[i].GetComponent<CartesianControl>().yPos = Mathf.Sin(Time.time * speed) * circleRadius + circleCenterOnY;
+            if (autoMotion) wideCircle[i].GetComponent<CartesianControl>().xPos = Mathf.Cos(Time.time * speed) * circleRadius + circleCenterOnX;
+            if (autoMotion) wideCircle[i].GetComponent<CartesianControl>().yPos = Mathf.Sin(Time.time * speed) * circleRadius + circleCenterOnY;
             wideCircle[i].GetComponent<DigitalArmControl>().ledIntensity = wideLedIntensity;
         }
 
         for (int i = 0; i < midCircle.Length; i++)
         {
-            midCircle[i].GetComponent<CartesianControl>().xPos = Mathf.Cos(Time.time * speed) * circleRadius + circleCenterOnX;
-            midCircle[i].GetComponent<CartesianControl>().yPos = Mathf.Sin(Time.time * speed * 2f) * circleRadius + circleCenterOnY;
+            if (autoMotion) midCircle[i].GetComponent<CartesianControl>().xPos = Mathf.Cos(Time.time * speed) * circleRadius + circleCenterOnX;
+            if (autoMotion) midCircle[i].GetComponent<CartesianControl>().yPos = Mathf.Sin(Time.time * speed * 2f) * circleRadius + circleCenterOnY;
             midCircle[i].GetComponent<DigitalArmControl>().ledIntensity = midLedIntensity;
         }
 
         for (int i = 0; i < narrowCircle.Length; i++)
         {
-            narrowCircle[i].GetComponent<CartesianControl>().xPos = Mathf.Cos(Time.time * speed) * circleRadius + circleCenterOnX;
-            narrowCircle[i].GetComponent<CartesianControl>().yPos = Mathf.Sin(Time.time * speed *3f) * circleRadius + circleCenterOnY;
+            if (autoMotion) narrowCircle[i].GetComponent<CartesianControl>().xPos = Mathf.Cos(Time.time * speed) * circleRadius + circleCenterOnX;
+            if (autoMotion) narrowCircle[i].GetComponent<CartesianControl>().yPos = Mathf.Sin(Time.time * speed *3f) * circleRadius + circleCenterOnY;
             narrowCircle[i].GetComponent<DigitalArmControl>().ledIntensity = narrowLedIntensity;
         }
 
@@ -77,25 +79,39 @@ public class InstallationManager : MonoBehaviour
             narrowLedIntensityTarget = 0f;
         }
 
+        if(Input.GetKey(KeyCode.I))
+        {
+            wideCircle[Random.Range(0,wideCircle.Length)].GetComponent<DigitalArmControl>().ledIntensity = 255;
+        }
+
+        if (Input.GetKey(KeyCode.O))
+        {
+            midCircle[Random.Range(0, midCircle.Length)].GetComponent<DigitalArmControl>().ledIntensity = 255;
+        }
+
+        if (Input.GetKey(KeyCode.P))
+        {
+            narrowCircle[Random.Range(0, narrowCircle.Length)].GetComponent<DigitalArmControl>().ledIntensity = 255;
+        }
+
+
+
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            speed = speed + 0.01f;
+        }
+
+
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            speed = speed - 0.01f;
+        }
+
 
         wideLedIntensity = Mathf.Lerp(wideLedIntensity, wideLedIntensityTarget, Time.deltaTime * 3f);
         midLedIntensity = Mathf.Lerp(midLedIntensity, midLedIntensityTarget, Time.deltaTime * 3f);
         narrowLedIntensity = Mathf.Lerp(narrowLedIntensity, narrowLedIntensityTarget, Time.deltaTime * 3f);
 
-
-    }
-
-
-
-
-
-    IEnumerator wideLedFade()
-    {
-        wideLedIntensity = 255f;
-        wideLedIntensityTarget = 255f;
-        yield return new WaitForSeconds(1f);
-        wideLedIntensityTarget = 0f;
-        yield return null;
     }
 
 }
