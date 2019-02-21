@@ -128,6 +128,11 @@ public class InstallationManager : MonoBehaviour
             speed = speed - 0.01f;
         }
 
+        if(Input.GetKey(KeyCode.A))
+        {
+            autoMotion = !autoMotion;
+        }
+
 
         wideLedIntensity = Mathf.Lerp(wideLedIntensity, wideLedIntensityTarget, Time.deltaTime * 3f);
         midLedIntensity = Mathf.Lerp(midLedIntensity, midLedIntensityTarget, Time.deltaTime * 3f);
