@@ -203,8 +203,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 690309220}
-  - component: {fileID: 690309219}
   - component: {fileID: 690309218}
+  - component: {fileID: 690309219}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -226,20 +226,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   status: Disconnected
   availablePorts: []
-  portName: 
+  portName: []
   baudRate: 115200
   connectionTimeoutMs: 2000
   data:
-    A0: 0
-    A1: 0
-    A2: 0
-    A3: 0
-    A4: 0
-    A5: 0
-    D2: 0
-    D4: 0
-    D7: 0
-  isReadEnabled: 0
+    msg: 
+    state: 
 --- !u!114 &690309219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,7 +241,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 690309217}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0be2a4970d7d5449b83308fb4d90312a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b3115f2e1ed748eca34d9bf3e9788f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serial: {fileID: 0}

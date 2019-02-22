@@ -6,6 +6,7 @@ public class DigitalArmControl : MonoBehaviour
 {
     public GameObject baseServoGameObject;
     public GameObject jointServoGameObject;
+    public Light virtualLED;
 
     public float baseServoAngle = 0f;
     public float jointServoAngle = 0f;
@@ -14,6 +15,8 @@ public class DigitalArmControl : MonoBehaviour
 
     private float dynamicBaseServoAngle = 0f;
     private float dynamicJointServoAngle = 0f;
+
+    public float ledIntensity = 0f;
 
     void Update()
     {
@@ -28,5 +31,10 @@ public class DigitalArmControl : MonoBehaviour
         // Apply rotation in degrees from baseServoAngle and jointServoAngle
         baseServoGameObject.transform.Rotate(0, 0, -dynamicBaseServoAngle);
         jointServoGameObject.transform.Rotate(0, 0, 180-dynamicJointServoAngle);
+
+
+        //virtual LED
+        virtualLED.intensity = ledIntensity / 100f;
+
     }
 }

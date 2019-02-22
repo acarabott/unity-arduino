@@ -11,6 +11,17 @@ public class ObjectPositionToCartesian : MonoBehaviour
     {
         myCartesianControl = transform.GetComponent<CartesianControl>();
         if (myCartesianControl == null) Debug.Log("The CartesianControl script has not been wired up properly (probably not found)");
+
+
+
+
+
+}
+
+    void Start()
+    {
+        gameObjectToFollow = GameObject.Find("Target");
+
     }
 
 
@@ -22,7 +33,7 @@ public class ObjectPositionToCartesian : MonoBehaviour
             return;
         }
 
-        myCartesianControl.xPos = -gameObjectToFollow.transform.position.x;
-        myCartesianControl.yPos = gameObjectToFollow.transform.position.y;
+        myCartesianControl.xPos = -gameObjectToFollow.transform.position.x - transform.position.x;
+        myCartesianControl.yPos = gameObjectToFollow.transform.position.y - transform.position.y;
     }
 }
