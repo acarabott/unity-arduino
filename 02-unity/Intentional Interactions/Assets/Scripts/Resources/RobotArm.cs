@@ -22,7 +22,7 @@ public class RobotArm
         if (distanceToTarget > 2f * armLength) distanceToTarget = 2f * armLength;
 
         // angle between the hypotenuse and the horizon
-        float alpha = Mathf.Atan(y / Mathf.max(x), 0.001) * Mathf.Rad2Deg;
+        float alpha = Mathf.Atan(y / Mathf.Max(x, 0.001f)) * Mathf.Rad2Deg;
 
         // angle between the hypotenuse and the first arm
         float beta = Mathf.Acos(distanceToTarget / (2f * armLength)) * Mathf.Rad2Deg;
